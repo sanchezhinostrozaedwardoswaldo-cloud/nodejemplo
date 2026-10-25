@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro | NodeEjemplo</title>
+    <link rel="stylesheet" href="css/estilos.css">
+    <script src="js/tema.js" defer></script>
+    <script src="js/registro.js" defer></script>
+    <link rel="stylesheet" href="./css/redisenio.css">
+    <link rel="stylesheet" href="./css/temas.css">
+</head>
+<body>
+    <main class="contenedor">
+        <form id="formRegistro" class="formulario">
+            <a class="enlace-volver" href="/">← Volver a la tienda</a>
+            <h1>Crear cuenta</h1>
+            <p>Regístrate para acceder al sistema</p>
+
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre" required
+                   autocomplete="name">
+
+            <label for="correo">Correo electrónico</label>
+            <input type="email" id="correo" required
+                   autocomplete="email">
+
+            <label for="password">Contraseña</label>
+            <input type="password" id="password"
+                   minlength="8" required
+                   autocomplete="new-password">
+
+            <button type="submit">Registrarme</button>
+
+            <p id="mensaje" class="mensaje" role="status"></p>
+
+            <div class="tema-auth"><label for="selectorTema">Apariencia</label><select id="selectorTema" data-selector-tema><option value="auto">Automático</option><option value="oscuro">Oscuro</option><option value="claro">Claro</option></select></div>
+            <p>¿Ya tienes una cuenta?
+                <a href="/login.html">Inicia sesión</a>
+            </p>
+        </form>
+    </main>
+</body>
+</html>

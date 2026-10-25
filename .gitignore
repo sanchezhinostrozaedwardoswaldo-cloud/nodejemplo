@@ -1,0 +1,62 @@
+# ==========================================
+# NODEEJEMPLO - ARCHIVOS EXCLUIDOS DE GIT
+# ==========================================
+
+# Dependencias de Node.js
+node_modules/
+
+# Variables de entorno y credenciales
+.env
+.env.*
+!.env.example
+
+# Registros de errores y ejecución
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Fotografías de perfil subidas por usuarios
+public/uploads/perfiles/*
+!public/uploads/perfiles/.gitkeep
+
+# Archivos temporales
+tmp/
+temp/
+*.tmp
+*.swp
+*.swo
+
+# Copias de seguridad
+*backup*/
+*.bak
+*.backup
+*.sql
+*.sql.gz
+
+# Archivos comprimidos
+*.zip
+*.tar
+*.tar.gz
+*.7z
+*.rar
+
+# Configuración local de editores
+.vscode/
+.idea/
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+*~
+
+# Informes de cobertura y compilaciones
+coverage/
+dist/
+build/
+
+# Archivos locales de SQLite
+*.sqlite
+*.sqlite3
+*.db

@@ -1,0 +1,106 @@
+/* Editor de avatar. Solo cambia el encuadre mostrado y guardado por la app. */
+.editor-overlay[hidden] {
+    display: none !important;
+}
+
+.editor-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2500;
+    background: rgba(2, 6, 23, .86);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    backdrop-filter: blur(5px);
+}
+
+.editor-panel {
+    background: #1e293b;
+    border: 1px solid #475569;
+    border-radius: 16px;
+    padding: 24px;
+    width: min(100%, 470px);
+    max-height: calc(100dvh - 30px);
+    overflow: auto;
+    box-shadow: 0 24px 80px #0009;
+}
+
+.editor-panel h3 {
+    margin: 0 0 8px;
+    font-size: 21px;
+}
+
+.editor-panel p {
+    font-size: 14px;
+    margin: 0 0 16px;
+}
+
+.editor-lienzo {
+    width: min(100%, 360px);
+    aspect-ratio: 1;
+    position: relative;
+    margin: 0 auto 15px;
+    overflow: hidden;
+    background: #0f172a;
+}
+
+#canvasEditorFoto {
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+    cursor: grab;
+}
+
+#canvasEditorFoto:active {
+    cursor: grabbing;
+}
+
+.editor-guia {
+    position: absolute;
+    inset: 0;
+    border: 2px solid #93c5fd;
+    border-radius: 50%;
+    box-shadow: 0 0 0 100px rgba(2, 6, 23, .44);
+    pointer-events: none;
+}
+
+.editor-panel label {
+    margin: 8px 0;
+}
+
+#zoomEditorFoto {
+    width: 100%;
+    accent-color: #3b82f6;
+}
+
+.editor-acciones {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.editor-acciones button {
+    flex: 1;
+    margin: 0;
+}
+
+.editor-secundario {
+    background: #475569;
+}
+
+.editor-secundario:hover {
+    background: #64748b;
+}
+
+body.editor-abierto {
+    overflow: hidden;
+}
+
+/* El atributo hidden debe prevalecer sobre display:flex de los avatares */
+.avatar-header[hidden],
+.perfil-foto[hidden],
+.avatar-inicial[hidden] {
+    display: none !important;
+}

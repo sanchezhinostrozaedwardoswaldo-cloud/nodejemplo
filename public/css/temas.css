@@ -1,0 +1,26 @@
+/* Tema compartido: modo oscuro original y alternativa clara */
+html[data-tema=claro]{color-scheme:light;--bg:#f4f7fc;--sidebar:#fff;--surface:#fff;--surface-2:#edf3fb;--line:#d5dfed;--text:#17263b;--muted:#546680;--accent:#245fd3;--accent-hover:#3676e5;--shadow:0 8px 24px rgba(32,57,96,.07)}
+html[data-tema=claro] body{background:var(--bg)!important;color:var(--text)!important}
+html[data-tema=claro] p{color:var(--muted)}
+html[data-tema=claro] .sidebar,html[data-tema=claro] .dashboard-main,html[data-tema=claro] .formulario,html[data-tema=claro] .dashboard-card,html[data-tema=claro] .estadistica-tarjeta,html[data-tema=claro] .actividades-resumen article,html[data-tema=claro] .perfil-tarjeta,html[data-tema=claro] .tabla-contenedor{background:var(--surface)!important;color:var(--text)!important;border-color:var(--line)!important}
+html[data-tema=claro] .dashboard-main{background:var(--bg)!important}
+html[data-tema=claro] .sidebar{background:#fff!important}
+html[data-tema=claro] .sidebar-logo h2,html[data-tema=claro] .dashboard-header h2,html[data-tema=claro] .dashboard-card h3,html[data-tema=claro] .formulario h1{color:var(--text)!important}
+html[data-tema=claro] .menu-item{color:#435875!important}
+html[data-tema=claro] .menu-item.activo{background:#e5efff!important;color:#1d58bb!important}
+html[data-tema=claro] .menu-item:not(.activo):hover{background:#f0f5ff!important}
+html[data-tema=claro] input,html[data-tema=claro] select,html[data-tema=claro] textarea{background:#fff!important;border-color:#bdcde1!important;color:#17263b!important}
+html[data-tema=claro] input::placeholder{color:#71819a!important}
+html[data-tema=claro] .tabla-usuarios th{background:#e9f0fa!important;color:#304967!important}
+html[data-tema=claro] .tabla-usuarios td,html[data-tema=claro] .tabla-usuarios tbody tr{color:#23364e!important;border-color:#e1e8f2!important}
+html[data-tema=claro] .modal-contenido,html[data-tema=claro] .modal-aviso-contenido,html[data-tema=claro] .editor-panel{background:#fff!important;color:#17263b!important;border-color:#d5dfed!important}
+html[data-tema=claro] .modal-contenido h3,html[data-tema=claro] .modal-aviso-contenido h3,html[data-tema=claro] .editor-panel h3{color:#17263b!important}
+html[data-tema=claro] .usuario-header,html[data-tema=claro] .dashboard-header p{color:#546680!important}
+html[data-tema=claro] .formulario{background:#fff!important}
+html[data-tema=claro] .dashboard-seccion{color:var(--text)}
+.tema-sidebar-label{display:block;font-size:12px;margin:10px 0 6px;color:var(--muted)}
+.sidebar-footer [data-selector-tema]{width:100%;margin:0 0 12px;min-height:38px}
+.volver-tienda{display:block;color:var(--muted);font-size:13px;text-decoration:none;margin-bottom:14px;padding:8px 3px}
+.volver-tienda:hover{color:var(--accent)}
+.enlace-volver{display:inline-block;margin-bottom:18px;text-decoration:none;font-size:13px}
+.tema-auth{margin-top:15px}.tema-auth label{margin:0 0 6px}.tema-auth select{width:100%}

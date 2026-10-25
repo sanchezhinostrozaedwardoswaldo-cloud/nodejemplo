@@ -1,0 +1,483 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | NodeEjemplo</title>
+
+    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/estadisticas.css">
+    <link rel="stylesheet" href="css/usuarios-avanzado.css">
+    <link rel="stylesheet" href="css/editor-foto.css">
+    <link rel="stylesheet" href="css/actividades.css">
+    <script src="js/tema.js" defer></script>
+    <script src="js/dashboard.js" defer></script>
+    <link rel="stylesheet" href="css/redisenio.css">
+    <link rel="stylesheet" href="css/temas.css">
+</head>
+
+<body class="dashboard-body">
+
+    <div class="dashboard-layout" id="panel" hidden>
+
+        <!-- MENÚ LATERAL -->
+        <aside class="sidebar">
+
+            <div class="sidebar-logo">
+                <h2>NodeEjemplo</h2>
+                <p>Panel de control</p>
+            </div>
+
+            <nav class="sidebar-menu">
+
+                <button
+                    type="button"
+                    class="menu-item activo"
+                    data-seccion="inicio">
+                    <span>⌂</span>
+                    Inicio
+                </button>
+
+                <button
+                    type="button"
+                    class="menu-item"
+                    data-seccion="usuarios"
+                    id="menuUsuarios"
+                    hidden>
+                    <span>♙</span>
+                    Administración de usuarios
+                </button>
+
+                <button type="button" class="menu-item" data-seccion="actividades" id="menuActividades" hidden><span>◷</span> Historial de actividades</button>
+
+                <button type="button" class="menu-item" data-seccion="perfil">
+                    <span>◉</span> Mi perfil
+                </button>
+
+                <button
+                    type="button"
+                    class="menu-item"
+                    data-seccion="password">
+                    <span>⚿</span>
+                    Cambiar contraseña
+                </button>
+
+            </nav>
+
+            <div class="sidebar-footer">
+                <a class="volver-tienda" href="/">← Volver a la tienda</a>
+                <label for="temaDashboard" class="tema-sidebar-label">Apariencia</label>
+                <select id="temaDashboard" data-selector-tema><option value="auto">Automático</option><option value="oscuro">Oscuro</option><option value="claro">Claro</option></select>
+                <button id="cerrarSesion" type="button">
+                    Cerrar sesión
+                </button>
+            </div>
+
+        </aside>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="dashboard-main">
+
+            <header class="dashboard-header">
+
+                <div>
+                    <h2 id="tituloSeccion">Inicio</h2>
+                    <p>Panel de gestión del sistema</p>
+                </div>
+
+                <div class="usuario-header-con-avatar">
+                    <img id="avatarHeader" class="avatar-header" alt="Fotografía de perfil" hidden>
+                    <div id="avatarHeaderInicial" class="avatar-inicial avatar-header">U</div>
+                <div class="usuario-header">
+                    <span id="nombreHeader">Usuario</span>
+                    <span id="rolHeader"></span>
+                </div>
+                </div>
+
+            </header>
+
+            <!-- SECCIÓN: INICIO -->
+            <section
+                id="seccion-inicio"
+                class="dashboard-seccion">
+
+                <h1 id="bienvenida"></h1>
+
+                <p>
+                    Has iniciado sesión correctamente.
+                    Bienvenido al sistema NodeEjemplo.
+                </p>
+
+                <div class="dashboard-cards">
+
+                    <article class="dashboard-card">
+                        <h3>Mi perfil</h3>
+
+                        <p>
+                            <strong>Correo:</strong>
+                            <span id="correo"></span>
+                        </p>
+
+                        <p>
+                            <strong>Rol:</strong>
+                            <span id="rol"></span>
+                        </p>
+                    </article>
+
+                    <article class="dashboard-card">
+                        <h3>Seguridad</h3>
+
+                        <p>
+                            Tu cuenta está protegida mediante
+                            autenticación JWT.
+                        </p>
+                    </article>
+
+                </div>
+
+                <div id="panelEstadisticas" class="estadisticas-panel" hidden>
+                    <div class="estadisticas-encabezado">
+                        <div>
+                            <h2>Resumen del sistema</h2>
+                            <p>Información actualizada directamente desde MySQL.</p>
+                        </div>
+                        <button type="button" id="btnActualizarEstadisticas" class="btn-actualizar-estadisticas">Actualizar</button>
+                    </div>
+                    <p id="mensajeEstadisticas" role="status" aria-live="polite"></p>
+                    <div class="estadisticas-grid">
+                        <article class="estadistica-tarjeta"><span>Total de usuarios</span><strong id="statTotal">—</strong></article>
+                        <article class="estadistica-tarjeta"><span>Administradores</span><strong id="statAdministradores">—</strong></article>
+                        <article class="estadistica-tarjeta"><span>Usuarios normales</span><strong id="statUsuarios">—</strong></article>
+                        <article class="estadistica-tarjeta"><span>Registrados este mes</span><strong id="statMes">—</strong></article>
+                    </div>
+                    <div class="estadisticas-recientes">
+                        <h3>Últimos usuarios registrados</h3>
+                        <div class="tabla-contenedor">
+                            <table class="tabla-usuarios">
+                                <thead><tr><th>Nombre</th><th>Correo</th><th>Rol</th><th>Fecha de registro</th></tr></thead>
+                                <tbody id="tablaUsuariosRecientes"><tr><td colspan="4">Cargando...</td></tr></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- SECCIÓN: MI PERFIL -->
+            <section id="seccion-perfil" class="dashboard-seccion" hidden>
+                <h2>Mi perfil</h2>
+                <p>Actualiza tu información y tu fotografía.</p>
+                <div class="perfil-tarjeta">
+                    <div class="perfil-foto-bloque">
+                        <img id="fotoPerfilVista" class="perfil-foto" alt="Fotografía de perfil" hidden>
+                        <div id="fotoPerfilInicial" class="avatar-inicial perfil-foto">U</div>
+                        <div class="perfil-foto-acciones">
+                            <label for="archivoFotoPerfil" class="perfil-elegir-foto">Seleccionar fotografía</label>
+                            <input type="file" id="archivoFotoPerfil" accept="image/jpeg,image/png,image/webp" hidden>
+                            <button type="button" id="btnGuardarFotoPerfil">Guardar fotografía</button>
+                            <button type="button" id="btnEliminarFotoPerfil" class="perfil-btn-secundario">Eliminar fotografía</button>
+                            <small>JPG, PNG o WebP · Hasta 10 MB · Recorte visual sin modificar el original</small>
+                        </div>
+                    </div>
+                    <form id="formMiPerfil">
+                        <label for="perfilNombre">Nombre completo</label>
+                        <input id="perfilNombre" type="text" maxlength="100" required>
+                        <label for="perfilCorreo">Correo electrónico</label>
+                        <input id="perfilCorreo" type="email" maxlength="150" required>
+                        <label for="perfilRol">Rol</label>
+                        <input id="perfilRol" type="text" disabled>
+                        <button type="submit">Guardar cambios</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- SECCIÓN: ADMINISTRACIÓN DE USUARIOS -->
+            <section
+                id="seccion-usuarios"
+                class="dashboard-seccion"
+                hidden>
+
+                <div class="seccion-encabezado">
+                    <div>
+                        <h2>Administración de usuarios</h2>
+                        <p>
+                            Gestiona los usuarios registrados
+                            en el sistema.
+                        </p>
+                    </div>
+
+                    <button
+                        type="button"
+                        id="btnNuevoUsuario">
+                        + Nuevo usuario
+                    </button>
+                </div>
+
+                <!-- Búsqueda, filtros y ordenamiento -->
+                <div class="usuarios-controles">
+                    <label>Buscar
+                        <input type="search" id="buscarUsuario" placeholder="Nombre o correo">
+                    </label>
+                    <label>Rol
+                        <select id="filtroRol"><option value="Todos">Todos</option><option value="Administrador">Administradores</option><option value="Usuario">Usuarios</option></select>
+                    </label>
+                    <label>Estado
+                        <select id="filtroEstado"><option value="Todos">Todos</option><option value="Activo">Activos</option><option value="Inactivo">Inactivos</option></select>
+                    </label>
+                    <label>Ordenar por
+                        <select id="ordenUsuarios"><option value="id">ID</option><option value="nombre">Nombre</option><option value="correo">Correo</option><option value="rol">Rol</option><option value="createdAt">Fecha de registro</option></select>
+                    </label>
+                    <label>Dirección
+                        <select id="direccionUsuarios"><option value="ASC">Ascendente</option><option value="DESC">Descendente</option></select>
+                    </label>
+                    <label>Por página
+                        <select id="limiteUsuarios"><option value="5">5</option><option value="10">10</option><option value="20">20</option></select>
+                    </label>
+                </div>
+                <div class="tabla-contenedor">
+                    <table class="tabla-usuarios">
+                        <thead><tr><th>ID</th><th>Nombre</th><th>Correo</th><th>Rol</th><th>Estado</th><th>Registro</th><th>Acciones</th></tr></thead>
+                        <tbody id="tablaUsuarios"><tr><td colspan="7">Cargando usuarios...</td></tr></tbody>
+                    </table>
+                </div>
+                <div class="usuarios-paginacion">
+                    <span id="resumenPaginacion" role="status">—</span>
+                    <div class="usuarios-paginacion-botones">
+                        <button type="button" id="paginaAnterior">Anterior</button>
+                        <span id="numeroPagina">Página 1 de 1</span>
+                        <button type="button" id="paginaSiguiente">Siguiente</button>
+                    </div>
+                </div>
+
+                <!-- FORMULARIO DE USUARIOS -->
+                <div id="contenedorFormularioUsuario" class="modal-overlay" hidden>
+                    <div class="modal-contenido" role="dialog" aria-modal="true" aria-labelledby="tituloFormularioUsuario" tabindex="-1">
+                        <button type="button" class="modal-cerrar" data-cerrar-modal aria-label="Cerrar ventana">&times;</button>
+
+                    <h3 id="tituloFormularioUsuario">
+                        Registrar usuario
+                    </h3>
+
+                    <form id="formUsuario">
+
+                        <input
+                            type="hidden"
+                            id="usuarioId">
+
+                        <label for="usuarioNombre">
+                            Nombre
+                        </label>
+                        <input
+                            type="text"
+                            id="usuarioNombre"
+                            maxlength="100"
+                            required>
+
+                        <label for="usuarioCorreo">
+                            Correo electrónico
+                        </label>
+                        <input
+                            type="email"
+                            id="usuarioCorreo"
+                            maxlength="150"
+                            required>
+
+                        <div id="grupoPasswordUsuario">
+                            <label for="usuarioPassword">
+                                Contraseña
+                            </label>
+                            <input
+                                type="password"
+                                id="usuarioPassword"
+                                minlength="8"
+                                maxlength="72">
+                        </div>
+
+                        <label for="usuarioRol">
+                            Rol
+                        </label>
+                        <select id="usuarioRol">
+                            <option value="Usuario">
+                                Usuario
+                            </option>
+                            <option value="Administrador">
+                                Administrador
+                            </option>
+                        </select>
+
+                        <div class="form-acciones">
+
+                            <button type="submit">
+                                Guardar
+                            </button>
+
+                            <button
+                                type="button"
+                                id="btnCancelarUsuario">
+                                Cancelar
+                            </button>
+
+                        </div>
+
+                        <p id="mensajeFormularioUsuario" class="mensaje-modal" role="alert"></p>
+                    </form>
+                    </div>
+                </div>
+
+                <!-- FORMULARIO PARA RESTABLECER CONTRASEÑA -->
+                <div id="contenedorRestablecerPassword" class="modal-overlay" hidden>
+                    <div class="modal-contenido" role="dialog" aria-modal="true" aria-labelledby="tituloRestablecer" tabindex="-1">
+                        <button type="button" class="modal-cerrar" data-cerrar-modal aria-label="Cerrar ventana">&times;</button>
+
+                    <h3 id="tituloRestablecer">Restablecer contraseña</h3>
+
+                    <p id="nombreUsuarioRestablecer"></p>
+
+                    <form id="formRestablecerPassword">
+
+                        <input
+                            type="hidden"
+                            id="restablecerUsuarioId">
+
+                        <label for="passwordRestablecida">
+                            Nueva contraseña
+                        </label>
+
+                        <input
+                            type="password"
+                            id="passwordRestablecida"
+                            minlength="8"
+                            maxlength="72"
+                            required>
+
+                        <div class="form-acciones">
+
+                            <button type="submit">
+                                Restablecer
+                            </button>
+
+                            <button
+                                type="button"
+                                id="btnCancelarRestablecer">
+                                Cancelar
+                            </button>
+
+                        </div>
+
+                        <p id="mensajeFormularioRestablecer" class="mensaje-modal" role="alert"></p>
+                    </form>
+                    </div>
+                </div>
+
+                <p id="mensajeUsuarios" role="status"></p>
+
+            </section>
+
+
+            <!-- HISTORIAL DE ACTIVIDADES (SOLO ADMINISTRADOR) -->
+            <section id="seccion-actividades" class="dashboard-seccion" hidden>
+                <div class="seccion-encabezado"><div><h2>Historial de actividades</h2><p>Movimientos registrados en MySQL.</p></div><button type="button" id="btnActualizarActividades">Actualizar</button></div>
+                <div class="actividades-resumen"><article><span>Total de actividades filtradas</span><strong id="actividadesTotal">—</strong></article><article><span>Actividades de hoy (UTC)</span><strong id="actividadesHoy">—</strong></article></div>
+                <div class="actividades-filtros">
+                    <label>Responsable<input type="search" id="actividadResponsable" maxlength="100" placeholder="Nombre del responsable"></label>
+                    <label>Acción<select id="actividadAccion"><option value="Todos">Todas las acciones</option></select></label>
+                    <label>Desde<input type="date" id="actividadDesde"></label>
+                    <label>Hasta<input type="date" id="actividadHasta"></label>
+                    <label>Por página<select id="actividadLimite"><option value="10">10</option><option value="20">20</option><option value="50">50</option></select></label>
+                    <button type="button" id="limpiarFiltroActividades">Limpiar filtros</button>
+                </div>
+                <div class="tabla-contenedor"><table class="tabla-usuarios"><thead><tr><th>Fecha</th><th>Responsable</th><th>Acción</th><th>Usuario afectado</th><th>Detalles</th></tr></thead><tbody id="tablaActividades"><tr><td colspan="5">Selecciona Historial de actividades.</td></tr></tbody></table></div>
+                <div class="usuarios-paginacion"><span id="resumenActividades" role="status">—</span><div class="usuarios-paginacion-botones"><button type="button" id="actividadAnterior">Anterior</button><span id="actividadPagina">Página 1 de 1</span><button type="button" id="actividadSiguiente">Siguiente</button></div></div>
+            </section>
+
+            <!-- SECCIÓN: CAMBIAR CONTRASEÑA -->
+            <section
+                id="seccion-password"
+                class="dashboard-seccion"
+                hidden>
+
+                <h2>Cambiar mi contraseña</h2>
+
+                <p>
+                    Actualiza la contraseña de tu cuenta.
+                </p>
+
+                <form id="formCambiarPassword">
+
+                    <label for="passwordActual">
+                        Contraseña actual
+                    </label>
+
+                    <input
+                        type="password"
+                        id="passwordActual"
+                        required>
+
+                    <label for="passwordNueva">
+                        Nueva contraseña
+                    </label>
+
+                    <input
+                        type="password"
+                        id="passwordNueva"
+                        minlength="8"
+                        maxlength="72"
+                        required>
+
+                    <label for="confirmarPassword">
+                        Confirmar nueva contraseña
+                    </label>
+
+                    <input
+                        type="password"
+                        id="confirmarPassword"
+                        minlength="8"
+                        maxlength="72"
+                        required>
+
+                    <button type="submit">
+                        Actualizar contraseña
+                    </button>
+
+                </form>
+
+                <p id="mensajePassword" role="status"></p>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <div id="modalEditorFoto" class="editor-overlay" hidden>
+        <div class="editor-panel" role="dialog" aria-modal="true" aria-labelledby="tituloEditorFoto" tabindex="-1">
+            <h3 id="tituloEditorFoto">Ajustar fotografía de perfil</h3>
+            <p>Arrastra la imagen para centrarla. El círculo indica cómo se verá tu avatar.</p>
+            <div class="editor-lienzo">
+                <canvas id="canvasEditorFoto" width="360" height="360" aria-label="Vista previa del recorte"></canvas>
+                <div class="editor-guia" aria-hidden="true"></div>
+            </div>
+            <label for="zoomEditorFoto">Zoom</label>
+            <input type="range" id="zoomEditorFoto" min="1" max="3" step="0.01" value="1">
+            <div class="editor-acciones">
+                <button type="button" id="cancelarEditorFoto" class="editor-secundario">Cancelar</button>
+                <button type="button" id="guardarEditorFoto">Guardar fotografía</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal universal para confirmaciones, errores y mensajes de botones -->
+    <div id="modalAviso" class="modal-aviso-overlay" hidden>
+        <div class="modal-aviso-contenido" role="dialog" aria-modal="true" aria-labelledby="tituloAviso" aria-describedby="textoAviso">
+            <h3 id="tituloAviso">Aviso</h3>
+            <p id="textoAviso"></p>
+            <div class="modal-aviso-acciones">
+                <button id="botonCancelarAviso" type="button">Cancelar</button>
+                <button id="botonAceptarAviso" type="button">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

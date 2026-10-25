@@ -1,0 +1,781 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #101827;
+    color: #f8fafc;
+}
+
+.contenedor {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.formulario {
+    background: #1e293b;
+    width: 100%;
+    max-width: 420px;
+    padding: 35px;
+    border-radius: 14px;
+    box-shadow: 0 10px 35px #0004;
+}
+
+h1 {
+    margin-top: 0;
+}
+
+p {
+    color: #cbd5e1;
+    line-height: 1.5;
+}
+
+label {
+    display: block;
+    margin: 18px 0 7px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #475569;
+    border-radius: 7px;
+    background: #0f172a;
+    color: white;
+    font-size: 15px;
+}
+
+input:focus {
+    outline: 2px solid #38bdf8;
+}
+
+button {
+    width: 100%;
+    margin-top: 24px;
+    padding: 12px;
+    border: 0;
+    border-radius: 7px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+a {
+    color: #38bdf8;
+}
+
+.mensaje {
+    min-height: 20px;
+}
+
+.error {
+    color: #fca5a5;
+}
+
+.exito {
+    color: #86efac;
+}
+
+.panel {
+    width: 100%;
+    max-width: 600px;
+    padding: 35px;
+    background: #1e293b;
+    border-radius: 14px;
+}
+
+
+/* =========================================
+   DASHBOARD - ESTRUCTURA PRINCIPAL
+========================================= */
+
+.dashboard-body {
+    min-height: 100vh;
+    background: #101827;
+}
+
+.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* MENÚ LATERAL */
+
+.sidebar {
+    width: 260px;
+    min-width: 260px;
+    min-height: 100vh;
+    background: #172235;
+    border-right: 1px solid #334155;
+    display: flex;
+    flex-direction: column;
+    padding: 24px 16px;
+}
+
+.sidebar-logo {
+    padding: 8px 12px 24px;
+    border-bottom: 1px solid #334155;
+}
+
+.sidebar-logo h2 {
+    margin: 0;
+    font-size: 23px;
+    color: #f8fafc;
+}
+
+.sidebar-logo p {
+    margin: 7px 0 0;
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 25px;
+}
+
+.menu-item {
+    width: 100%;
+    margin: 0;
+    padding: 13px 15px;
+    background: transparent;
+    color: #cbd5e1;
+    text-align: left;
+    font-size: 14px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: background 0.2s;
+}
+
+.menu-item span {
+    font-size: 20px;
+}
+
+.menu-item:hover {
+    background: #253650;
+}
+
+.menu-item.activo {
+    background: #294568;
+    color: #93c5fd;
+    font-weight: bold;
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    padding-top: 25px;
+}
+
+.sidebar-footer button {
+    margin: 0;
+    background: #7f1d1d;
+    font-size: 14px;
+}
+
+.sidebar-footer button:hover {
+    background: #991b1b;
+}
+
+/* CONTENIDO PRINCIPAL */
+
+.dashboard-main {
+    flex: 1;
+    min-width: 0;
+    padding: 30px;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 35px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #334155;
+}
+
+.dashboard-header h2 {
+    margin: 0;
+    font-size: 25px;
+}
+
+.dashboard-header p {
+    margin: 7px 0 0;
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+.usuario-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+    font-size: 14px;
+}
+
+#nombreHeader {
+    font-weight: bold;
+}
+
+#rolHeader {
+    color: #93c5fd;
+    font-size: 12px;
+}
+
+/* SECCIONES */
+
+.dashboard-seccion {
+    animation: aparecer 0.2s ease;
+}
+
+.dashboard-seccion[hidden],
+.dashboard-layout[hidden],
+.menu-item[hidden],
+#contenedorFormularioUsuario[hidden],
+#contenedorRestablecerPassword[hidden] {
+    display: none !important;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dashboard-seccion h1 {
+    font-size: 28px;
+    margin-bottom: 12px;
+}
+
+.dashboard-seccion h2 {
+    margin-top: 0;
+}
+
+/* TARJETAS DE INICIO */
+
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 28px;
+}
+
+.dashboard-card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 14px;
+    padding: 25px;
+}
+
+.dashboard-card h3 {
+    margin-top: 0;
+    color: #f8fafc;
+}
+
+.dashboard-card p {
+    margin-bottom: 8px;
+    overflow-wrap: anywhere;
+}
+
+/* ADMINISTRACIÓN DE USUARIOS */
+
+.seccion-encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.seccion-encabezado h2 {
+    margin-bottom: 7px;
+}
+
+.seccion-encabezado p {
+    margin: 0;
+    color: #94a3b8;
+}
+
+#btnNuevoUsuario {
+    width: auto;
+    margin: 0;
+    padding: 12px 20px;
+    white-space: nowrap;
+}
+
+.usuarios-herramientas {
+    margin-bottom: 20px;
+}
+
+#buscarUsuario {
+    max-width: 400px;
+}
+
+/* TABLA */
+
+.tabla-contenedor {
+    width: 100%;
+    overflow-x: auto;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+}
+
+.tabla-usuarios {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 680px;
+}
+
+.tabla-usuarios th,
+.tabla-usuarios td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #334155;
+}
+
+.tabla-usuarios th {
+    background: #25344b;
+    color: #cbd5e1;
+    font-size: 13px;
+}
+
+.tabla-usuarios td {
+    font-size: 14px;
+    color: #e2e8f0;
+}
+
+.tabla-usuarios tbody tr:hover {
+    background: #26364e;
+}
+
+.tabla-usuarios tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* BOTONES DE ACCIONES */
+
+.acciones-usuario {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+}
+
+.acciones-usuario button {
+    width: auto;
+    margin: 0;
+    padding: 8px 11px;
+    font-size: 12px;
+}
+
+.btn-editar {
+    background: #2563eb;
+}
+
+.btn-restablecer {
+    background: #475569;
+}
+
+.btn-eliminar {
+    background: #991b1b;
+}
+
+.btn-eliminar:hover {
+    background: #b91c1c;
+}
+
+/* FORMULARIOS DEL DASHBOARD */
+
+#contenedorFormularioUsuario,
+#contenedorRestablecerPassword {
+    max-width: 650px;
+    margin-top: 25px;
+    padding: 25px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+}
+
+.dashboard-seccion form {
+    max-width: 650px;
+}
+
+.dashboard-seccion input,
+.dashboard-seccion select {
+    width: 100%;
+    padding: 12px;
+    background: #0f172a;
+    color: #f8fafc;
+    border: 1px solid #475569;
+    border-radius: 7px;
+    font-size: 15px;
+}
+
+.dashboard-seccion input:focus,
+.dashboard-seccion select:focus {
+    outline: 2px solid #38bdf8;
+    outline-offset: 1px;
+}
+
+.dashboard-seccion label {
+    display: block;
+    margin: 18px 0 7px;
+}
+
+.form-acciones {
+    display: flex;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+.form-acciones button {
+    margin: 0;
+    width: auto;
+}
+
+#btnCancelarUsuario,
+#btnCancelarRestablecer {
+    background: #475569;
+}
+
+#btnCancelarUsuario:hover,
+#btnCancelarRestablecer:hover {
+    background: #64748b;
+}
+
+/* MENSAJES */
+
+#mensajeUsuarios,
+#mensajePassword {
+    min-height: 22px;
+    margin-top: 16px;
+    font-size: 14px;
+}
+
+/* ADAPTACIÓN A PANTALLAS PEQUEÑAS */
+
+@media (max-width: 900px) {
+    .sidebar {
+        width: 220px;
+        min-width: 220px;
+    }
+
+    .dashboard-main {
+        padding: 22px;
+    }
+
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 650px) {
+    .dashboard-layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-width: 0;
+        min-height: auto;
+        padding: 16px;
+    }
+
+    .sidebar-logo {
+        padding-bottom: 14px;
+    }
+
+    .sidebar-menu {
+        margin-top: 15px;
+    }
+
+    .sidebar-footer {
+        margin-top: 16px;
+        padding-top: 0;
+    }
+
+    .dashboard-main {
+        padding: 18px;
+    }
+
+    .dashboard-header {
+        align-items: flex-start;
+    }
+
+    .usuario-header {
+        font-size: 12px;
+    }
+
+    .seccion-encabezado {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #btnNuevoUsuario {
+        width: 100%;
+    }
+
+    .form-acciones {
+        flex-direction: column;
+    }
+
+    .form-acciones button {
+        width: 100%;
+    }
+}
+
+#grupoPasswordUsuario[hidden] {
+    display: none !important;
+}
+
+/* =========================================
+   MODALES DE ADMINISTRACIÓN
+========================================= */
+
+body.modal-abierto {
+    overflow: hidden;
+}
+
+#contenedorFormularioUsuario.modal-overlay,
+#contenedorRestablecerPassword.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+    padding: 20px;
+    border: 0;
+    border-radius: 0;
+    background: rgba(2, 6, 23, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.modal-overlay[hidden] {
+    display: none !important;
+}
+
+.modal-contenido {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    max-height: calc(100dvh - 40px);
+    overflow-y: auto;
+    padding: 30px;
+    background: #1e293b;
+    border: 1px solid #475569;
+    border-radius: 16px;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5);
+    animation: modalAparecer 0.2s ease-out;
+}
+
+.modal-contenido h3 {
+    margin: 0 35px 20px 0;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #334155;
+    font-size: 21px;
+}
+
+.modal-contenido .modal-cerrar {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 34px;
+    height: 34px;
+    margin: 0;
+    padding: 0;
+    background: #334155;
+    color: #f8fafc;
+    font-size: 24px;
+    line-height: 1;
+}
+
+.modal-contenido .modal-cerrar:hover {
+    background: #475569;
+}
+
+.modal-contenido .form-acciones {
+    justify-content: flex-end;
+    margin-top: 25px;
+}
+
+.modal-contenido .form-acciones button {
+    width: auto;
+    min-width: 110px;
+}
+
+.mensaje-modal {
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
+@keyframes modalAparecer {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 600px) {
+    .modal-contenido {
+        padding: 20px;
+        border-radius: 12px;
+    }
+
+    .modal-contenido .form-acciones {
+        flex-direction: column-reverse;
+    }
+
+    .modal-contenido .form-acciones button {
+        width: 100%;
+    }
+}
+
+/* ETAPA 3: PERFIL Y AVATARES */
+.usuario-header-con-avatar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar-header {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.avatar-inicial {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #294568;
+    color: #bfdbfe;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+img.avatar-header,
+img.perfil-foto {
+    object-fit: cover;
+    border: 2px solid #475569;
+}
+
+.perfil-tarjeta {
+    max-width: 850px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 14px;
+    padding: 30px;
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 35px;
+    margin-top: 22px;
+}
+
+.perfil-foto-bloque {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.perfil-foto {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    font-size: 60px;
+}
+
+.perfil-foto-acciones {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.perfil-foto-acciones button {
+    margin: 0;
+    font-size: 14px;
+    padding: 11px;
+}
+
+.perfil-elegir-foto {
+    cursor: pointer;
+    display: block;
+    text-align: center;
+    background: #334155;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 0 !important;
+}
+
+.perfil-elegir-foto:hover {
+    background: #475569;
+}
+
+.perfil-btn-secundario {
+    background: #7f1d1d;
+}
+
+.perfil-foto-acciones small {
+    color: #94a3b8;
+    text-align: center;
+}
+
+#formMiPerfil button {
+    width: auto;
+}
+
+@media(max-width:720px) {
+    .perfil-tarjeta {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+
+    .usuario-header-con-avatar {
+        gap: 7px;
+    }
+}
+
+/* Ocultar correctamente los avatares que no se utilizan */
+.avatar-perfil[hidden],
+.avatar-header[hidden],
+.foto-perfil[hidden],
+.foto-header[hidden] {
+    display: none !important;
+}
+
+/* Regla general para elementos ocultos */
+[hidden] {
+    display: none !important;
+}

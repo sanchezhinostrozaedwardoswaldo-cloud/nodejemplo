@@ -1,0 +1,89 @@
+.actividades-resumen {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin: 20px 0
+}
+
+.actividades-resumen article {
+    background: #232e40;
+    border: 1px solid #37465d;
+    border-radius: 12px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px
+}
+
+.actividades-resumen span {
+    color: #b9c9e3;
+    font-size: 14px
+}
+
+.actividades-resumen strong {
+    font-size: 28px;
+    color: white
+}
+
+.actividades-filtros {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(130px, 1fr)) auto;
+    gap: 12px;
+    align-items: end;
+    margin: 20px 0
+}
+
+.actividades-filtros label {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    font-size: 13px;
+    color: #cbd8eb
+}
+
+.actividades-filtros input,
+.actividades-filtros select {
+    width: 100%;
+    min-width: 0;
+    padding: 10px;
+    background: #172033;
+    color: #e5efff;
+    border: 1px solid #46546a;
+    border-radius: 6px
+}
+
+.actividades-filtros button,
+.actividad-detalle-btn {
+    padding: 10px 12px;
+    background: #315fd8;
+    color: white;
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer
+}
+
+.actividad-detalle-btn {
+    font-size: 12px;
+    white-space: nowrap
+}
+
+.modal-aviso-contenido #textoAviso {
+    white-space: pre-line;
+    overflow-wrap: anywhere
+}
+
+@media(max-width:1050px) {
+    .actividades-filtros {
+        grid-template-columns: repeat(3, minmax(0, 1fr))
+    }
+}
+
+@media(max-width:650px) {
+    .actividades-filtros {
+        grid-template-columns: 1fr 1fr
+    }
+
+    .actividades-resumen {
+        grid-template-columns: 1fr
+    }
+}
